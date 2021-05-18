@@ -1,14 +1,20 @@
 package se.iths.jh.combinatoricsCalculator;
 
 
+import se.iths.jh.combinatoricsCalculator.entities.Record;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.ws.rs.WebApplicationException;
+import java.util.List;
 import java.util.Optional;
 
 @ApplicationScoped
 public class CombinatoricsSerivce {
 
+    @Inject
+    PersistenceService persistenceService;
 
     public Integer calcuatePermutations(Optional<Integer> elements,
                                         Optional<Integer> choices,
@@ -16,7 +22,9 @@ public class CombinatoricsSerivce {
         validate(elements, choices);
         int n = elements.get();
         int k = choices.get();
-        return factorial(n) / (factorial(n - k));
+        int res =  factorial(n) / (factorial(n - k));
+        persistenceService.persist(n, k, repetition);
+        return res;
     }
 
     private void validate(Optional<Integer> elements,
@@ -30,7 +38,10 @@ public class CombinatoricsSerivce {
                                         Optional<Integer> choices,
                                         Boolean repetition) {
         validate(elements, choices);
-        return calcuatePermutations(elements, choices, repetition) / factorial(choices.get());
+        int n = elements.get();
+        int k = choices.get();
+        int res =  factorial(n) / (factorial(n - k))/ factorial(choices.get());
+        return res;
     }
 
     private Integer factorial(int number) {
@@ -42,4 +53,7 @@ public class CombinatoricsSerivce {
     }
 
 
+    public List<Record> getAll() {
+        return persistenceService.getAll(null);
+    }
 }
