@@ -29,7 +29,8 @@ public class CombinatoricsSerivce {
 
     private void validate(Optional<Integer> elements,
                           Optional<Integer> choices) {
-        if ((elements.isEmpty() || choices.isEmpty()) || choices.get() > elements.get() || choices.get()< 0) {
+        if ((elements != null || choices != null) || (elements.isEmpty() || choices.isEmpty())
+                || choices.get() > elements.get() || choices.get() < 0) {
             throw new WebApplicationException("Request does not meet requirments: 'elements'>='choices', only 0 & positive integers");
         }
     }

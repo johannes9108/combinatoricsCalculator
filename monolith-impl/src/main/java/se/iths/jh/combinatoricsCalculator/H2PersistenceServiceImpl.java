@@ -1,6 +1,5 @@
 package se.iths.jh.combinatoricsCalculator;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import se.iths.jh.combinatoricsCalculator.entities.Record;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -32,7 +31,7 @@ public class H2PersistenceServiceImpl implements PersistenceService{
     private Record updateRecord(Integer n, Integer k, Boolean repetition, Record record) {
         record.setElements(n);
         record.setChoices(k);
-        record.setRepition(repetition);
+        record.setRepetition(repetition);
         record.setDateTime(LocalDateTime.now());
         record.persist();
         return record;

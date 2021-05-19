@@ -23,7 +23,7 @@ public class CombinatoricsResource {
     @Path("permutations")
     public Response permuatations(@QueryParam("elements")Optional<Integer> elements,
                                 @QueryParam("choices") Optional<Integer> choices,
-                                @QueryParam("repetition") Boolean repetition){
+                                @QueryParam("repetition") @DefaultValue("false") Boolean repetition){
 
         int result = 0;
         try {
