@@ -1,20 +1,20 @@
-package se.iths.jh.combinatoricsCalculator.entities;
+package se.iths.jh.combinatoricsCalculator.rest;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 import javax.persistence.Entity;
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 
-@Entity
-public class Record extends PanacheEntity {
+public class Record {
 
     private LocalDateTime dateTime;
     private long elements;
     private long choices;
     private Boolean repetition;
-    private long result;
+    private BigInteger result;
 
-    public Record(LocalDateTime dateTime, long elements, long choices, Boolean repetition,long result) {
+    public Record(LocalDateTime dateTime, long elements, long choices, Boolean repetition,BigInteger result) {
         this.dateTime = dateTime;
         this.elements = elements;
         this.choices = choices;
@@ -57,11 +57,11 @@ public class Record extends PanacheEntity {
         this.repetition = repetition;
     }
 
-    public long getResult() {
+    public BigInteger getResult() {
         return result;
     }
 
-    public void setResult(long result) {
+    public void setResult(BigInteger result) {
         this.result = result;
     }
 

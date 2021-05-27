@@ -1,6 +1,10 @@
 package se.iths.jh.combinatoricsCalculator;
 
 
+import io.quarkus.qute.CheckedTemplate;
+import io.quarkus.qute.Template;
+import io.quarkus.qute.TemplateInstance;
+import org.jboss.logging.Logger;
 import org.jboss.resteasy.specimpl.ResponseBuilderImpl;
 import se.iths.jh.combinatoricsCalculator.entities.Record;
 
@@ -18,14 +22,56 @@ public class CombinatoricsResource {
     @Inject
     CombinatoricsSerivce combinatoricsSerivce;
 
+    private Logger LOGGER = Logger.getLogger(CombinatoricsResource.class);
+
+    @GET
+    @Produces(MediaType.TEXT_HTML)
+    public TemplateInstance get(){
+        return Template.index();
+    }
+
+    @POST
+    @Produces(MediaType.TEXT_HTML)
+    @Path("/permutations")
+    public TemplateInstance postPermutations(@FormParam("elements") Optional<Long> elements,
+                                 @FormParam("choices")  Optional<Long> choices,
+                                 @FormParam("repetition") String repetition){
+        boolean rep = repetition !=null;
+        try {
+            return Template.index().data("result", combinatoricsSerivce.calcuatePermutations(elements,choices,rep));
+        } catch (Exception e) {
+            return Template.index().data("result", e.getMessage());
+
+        }
+    }
+    @POST
+    @Path("/combinations")
+    @Produces(MediaType.TEXT_HTML)
+    public TemplateInstance postCombinations(@FormParam("elements") Optional<Long> elements,
+                                 @FormParam("choices")  Optional<Long> choices,
+                                 @FormParam("repetition") String repetition){
+        boolean rep = repetition !=null;
+        try {
+            return Template.index().data("result", combinatoricsSerivce.calcuateCombinations(elements,choices,rep));
+        } catch (Exception e) {
+            return Template.index().data("result", e.getMessage());
+        }
+    }
+
+    @CheckedTemplate
+    public static class Template{
+        public static native TemplateInstance index();
+
+    }
+
 
     @GET
     @Path("permutations")
-    public Response permuatations(@QueryParam("elements")Optional<Integer> elements,
-                                @QueryParam("choices") Optional<Integer> choices,
-                                @QueryParam("repetition") @DefaultValue("false") Boolean repetition){
+    public Response permuatations(@QueryParam("elements")Optional<Long> elements,
+                                @QueryParam("choices") Optional<Long> choices,
+                                @QueryParam("repetition") @DefaultValue("false") boolean repetition){
 
-        int result = 0;
+        long result = -1;
         try {
             result = combinatoricsSerivce.calcuatePermutations(elements,choices,repetition);
         } catch (WebApplicationException e) {
@@ -36,11 +82,11 @@ public class CombinatoricsResource {
 
     @GET
     @Path("combinations")
-    public Response combinations(@QueryParam("elements")Optional<Integer> elements,
-                                 @QueryParam("choices") Optional<Integer> choices,
-                                 @QueryParam("repetition") Boolean repetition){
+    public Response combinations(@QueryParam("elements")Optional<Long> elements,
+                                 @QueryParam("choices") Optional<Long> choices,
+                                 @QueryParam("repetition") boolean repetition){
 
-        int result = 0;
+        long result = -1;
         try {
             result = combinatoricsSerivce.calcuateCombinations(elements,choices,repetition);
         } catch (WebApplicationException e) {

@@ -1,39 +1,38 @@
-package se.iths.jh.combinatoricsCalculator;
+package se.iths.jh.combinatoricsCalculator.rest;
 
-import se.iths.jh.combinatoricsCalculator.entities.Record;
-
+import se.iths.jh.combinatoricsCalculator.rest.entities.Record;
 import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;
 import javax.ws.rs.WebApplicationException;
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
 @ApplicationScoped
-public class H2PersistenceServiceImpl implements PersistenceService{
+public class H2PersistenceServiceImpl implements PersistenceService {
 
     @Transactional
     @Override
-    public Record persist(long n, long k, boolean repetition, long result) {
-        Record record = new Record(LocalDateTime.now(),n,k,repetition,result);
+    public Record persist(long n, long k, Boolean repetition, BigInteger result) {
+        Record record = new Record(LocalDateTime.now(),n,k,repetition);
         record.persist();
         return record;
     }
 
     @Transactional
     @Override
-    public Record update(long id, long n, long k, boolean repetition, long result) {
+    public Record update(long id, long n, long k, Boolean repetition,BigInteger result) {
         Record record = getBy(id);
-        return updateRecord(n, k, repetition, result,record);
+        return updateRecord(n, k, repetition, record);
     }
 
-    private Record updateRecord(long n, long k, boolean repetition,long result, Record record) {
+    private Record updateRecord(long n, long k, Boolean repetition, Record record) {
         record.setElements(n);
         record.setChoices(k);
         record.setRepetition(repetition);
         record.setDateTime(LocalDateTime.now());
-        record.setResult(result);
         record.persist();
         return record;
     }

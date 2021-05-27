@@ -56,19 +56,19 @@ public class CombinatoricsTests {
 
     @Test
     public void testPermutations(){
-        Assertions.assertEquals(30240,combinatoricsSerivce.calcuatePermutations(Optional.of(10), Optional.of(5),repetition));
+        Assertions.assertEquals(30240,combinatoricsSerivce.calcuatePermutations(Optional.of(10L), Optional.of(5L),repetition));
     }
     @Test
     public void testPermutationsInvalidInput(){
 
         Assertions.assertThrows(WebApplicationException.class, () -> {
-            combinatoricsSerivce.calcuatePermutations(Optional.ofNullable(null), Optional.of(5),repetition);
+            combinatoricsSerivce.calcuatePermutations(Optional.ofNullable(null), Optional.of(5L),repetition);
         });
         Assertions.assertThrows(WebApplicationException.class, () -> {
-            combinatoricsSerivce.calcuatePermutations(null, Optional.of(5),repetition);
+            combinatoricsSerivce.calcuatePermutations(null, Optional.of(5L),repetition);
         });
         Assertions.assertThrows(WebApplicationException.class, () -> {
-            combinatoricsSerivce.calcuatePermutations(Optional.of(5), Optional.of(10),repetition);
+            combinatoricsSerivce.calcuatePermutations(Optional.of(5L), Optional.of(10L),repetition);
         });
     }
 

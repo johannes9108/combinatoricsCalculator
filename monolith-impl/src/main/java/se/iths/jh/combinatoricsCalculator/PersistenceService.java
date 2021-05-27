@@ -2,15 +2,16 @@ package se.iths.jh.combinatoricsCalculator;
 
 import se.iths.jh.combinatoricsCalculator.entities.Record;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 
 public interface PersistenceService {
 
-    Record persist(Integer n, Integer k, Boolean repetition);
-    Record update(Integer id, Integer n, Integer k, Boolean repetition);
-    Record delete(Integer id);
-    Record getBy(Integer id);
+    Record persist(long n, long k, boolean repetition, long result);
+    Record update(long id, long n, long k, boolean repetition, long result);
+    Record delete(long id);
+    Record getBy(long id);
     List<Record> getAll(HashMap<String, String> searchParams);
 
 }

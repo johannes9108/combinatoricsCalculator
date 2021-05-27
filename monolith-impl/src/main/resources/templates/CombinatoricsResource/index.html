@@ -1,0 +1,39 @@
+<html>
+<head>
+<style>
+.container{
+display: flex;
+flex-direction: column;
+width: 50%;
+
+}
+</style>
+</head>
+<body>
+    Hello !
+    <div class="container">   
+        <fieldset>
+            <legend>Permutations</legend>
+            <form method="POST" action="/combinatorics/permutations">
+                <label for="">Elements: <input type="number" name="elements" id="elements" value="0"></label>
+                <label for="">Choices: <input type="number" name="choices" id="choices" value="0"></label>
+                <label for="">Repetition: <input type="checkbox" name="repetition" id="repetition" checked></label>
+                <input type="submit">
+            </form>
+        </fieldset>
+        <fieldset>
+            <legend>Combinations</legend>
+            <form method="POST" action="/combinatorics/combinations">
+                <label for="">Elements: <input type="number" name="elements" id="elements" value="0"></label>
+                <label for="">Choices: <input type="number" name="choices" id="choices" value="0"></label>
+                <label for="">Repetition: <input type="checkbox" name="repetition" id="repetition" checked></label>
+                <input type="submit">
+            </form>
+        </fieldset>
+    </div>
+    {#if result}
+    <label for="">Result: {result}</label>
+    {/if}
+</body>
+
+</html>
