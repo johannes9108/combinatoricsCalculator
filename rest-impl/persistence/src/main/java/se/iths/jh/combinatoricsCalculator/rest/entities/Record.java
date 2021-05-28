@@ -12,12 +12,14 @@ public class Record extends PanacheEntity {
     private long elements;
     private long choices;
     private Boolean repetition;
+    private long result;
 
-    public Record(LocalDateTime dateTime, long elements, long choices, Boolean repetition) {
+    public Record(LocalDateTime dateTime, long elements, long choices, Boolean repetition,long result) {
         this.dateTime = dateTime;
         this.elements = elements;
         this.choices = choices;
         this.repetition = repetition;
+        this.result = result;
     }
 
     public Record() {
@@ -55,6 +57,14 @@ public class Record extends PanacheEntity {
         this.repetition = repetition;
     }
 
+    public long getResult() {
+        return result;
+    }
+
+    public void setResult(long result) {
+        this.result = result;
+    }
+
     @Override
     public String toString() {
         return "Record{" +
@@ -62,6 +72,7 @@ public class Record extends PanacheEntity {
                 ", elements=" + elements +
                 ", choices=" + choices +
                 ", repetition=" + repetition +
+                ", result=" + result +
                 '}';
     }
 }

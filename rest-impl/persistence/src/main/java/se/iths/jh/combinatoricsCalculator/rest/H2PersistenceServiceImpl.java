@@ -15,24 +15,25 @@ public class H2PersistenceServiceImpl implements PersistenceService {
 
     @Transactional
     @Override
-    public Record persist(long n, long k, Boolean repetition, BigInteger result) {
-        Record record = new Record(LocalDateTime.now(),n,k,repetition);
+    public Record persist(long n, long k, boolean repetition, long result) {
+        Record record = new Record(LocalDateTime.now(),n,k,repetition,result);
         record.persist();
         return record;
     }
 
     @Transactional
     @Override
-    public Record update(long id, long n, long k, Boolean repetition,BigInteger result) {
+    public Record update(long id, long n, long k, boolean repetition, long result) {
         Record record = getBy(id);
-        return updateRecord(n, k, repetition, record);
+        return updateRecord(n, k, repetition, result,record);
     }
 
-    private Record updateRecord(long n, long k, Boolean repetition, Record record) {
+    private Record updateRecord(long n, long k, boolean repetition,long result, Record record) {
         record.setElements(n);
         record.setChoices(k);
         record.setRepetition(repetition);
         record.setDateTime(LocalDateTime.now());
+        record.setResult(result);
         record.persist();
         return record;
     }

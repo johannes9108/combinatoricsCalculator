@@ -5,12 +5,11 @@ import se.iths.jh.combinatoricsCalculator.entities.Record;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
 import javax.ws.rs.WebApplicationException;
 import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @ApplicationScoped
@@ -90,9 +89,7 @@ public class CombinatoricsSerivce {
     }
 
 
-    @GET
-    @Path("all")
-    public List<Record> getAll() {
-        return persistenceService.getAll(null);
+    public List<Record> getAll(HashMap<String, String> searchParams) {
+        return persistenceService.getAll(searchParams);
     }
 }

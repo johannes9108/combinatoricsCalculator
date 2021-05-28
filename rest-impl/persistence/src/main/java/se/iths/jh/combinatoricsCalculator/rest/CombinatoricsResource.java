@@ -26,10 +26,10 @@ public class CombinatoricsResource implements PersistenceService{
     @Override
     public Record persist(@QueryParam("elements") long n,
                           @QueryParam("choices") long k,
-                          @QueryParam("repetition") @DefaultValue("false") Boolean repetition,
-                          @QueryParam("result") BigInteger result) {
+                          @QueryParam("repetition") @DefaultValue("false") boolean repetition,
+                          @QueryParam("result") long result) {
         LOGGER.warn(String.format("%s %s %s %s",n,k,repetition,result));
-        return persistenceService.persist(n,k,repetition,BigInteger.ZERO);
+        return persistenceService.persist(n,k,repetition,result);
     }
     @POST
     @Override
@@ -37,8 +37,8 @@ public class CombinatoricsResource implements PersistenceService{
     public Record update(@QueryParam("id") long id,
                          @QueryParam("elements") long n,
                          @QueryParam("choices") long k,
-                         @QueryParam("repetition") @DefaultValue("false") Boolean repetition,
-                         @QueryParam("result") BigInteger result) {
+                         @QueryParam("repetition") @DefaultValue("false") boolean repetition,
+                         @QueryParam("result") long result) {
         return persistenceService.update(id,n,k,repetition, result);
     }
     @DELETE

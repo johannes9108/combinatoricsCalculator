@@ -1,5 +1,6 @@
 package se.iths.jh.combinatoricsCalculator;
 
+import org.jboss.logging.Logger;
 import se.iths.jh.combinatoricsCalculator.entities.Record;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -11,12 +12,14 @@ import java.util.List;
 import java.util.Optional;
 
 @ApplicationScoped
-public class H2PersistenceServiceImpl implements PersistenceService{
+public class H2PersistenceServiceImpl implements PersistenceService {
+
+    private org.jboss.logging.Logger LOGGER = Logger.getLogger(H2PersistenceServiceImpl.class);
 
     @Transactional
     @Override
     public Record persist(long n, long k, boolean repetition, long result) {
-        Record record = new Record(LocalDateTime.now(),n,k,repetition,result);
+        Record record = new Record(LocalDateTime.now(), n, k, repetition, result);
         record.persist();
         return record;
     }
@@ -58,6 +61,20 @@ public class H2PersistenceServiceImpl implements PersistenceService{
 
     @Override
     public List<Record> getAll(HashMap<String, String> searchParams) {
-        return Record.listAll();
+        StringBuilder stringBuilder = new StringBuilder("from Record r WHERE ");
+        searchParams.entrySet()
+                .forEach(entry -> {
+                    String key = entry.getKey();
+                    if (key.contains("Max")) {
+                                stringBuilder.append("r.").append(key.substring(0,key.length()-3)).append(" <= ").append(entry.getValue()).append(" AND ");
+                            } else if (key.contains("Min")) {
+                        stringBuilder.append("r.").append(key.substring(0,key.length() - 3)).append(" >= ").append(entry.getValue()).append(" AND ");
+                            } else {
+                                stringBuilder.append("r.").append(key).append(" = ").append(entry.getValue()).append(" AND ");
+                            }
+                        });
+        String resultingString = stringBuilder.substring(0, stringBuilder.length() - 5);
+        return searchParams.isEmpty() ? Record.listAll() :
+                Record.find(resultingString).list();
     }
 }

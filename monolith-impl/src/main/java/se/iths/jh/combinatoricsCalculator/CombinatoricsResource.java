@@ -5,14 +5,20 @@ import io.quarkus.qute.CheckedTemplate;
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;
 import org.jboss.logging.Logger;
+import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
+import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInputImpl;
 import org.jboss.resteasy.specimpl.ResponseBuilderImpl;
 import se.iths.jh.combinatoricsCalculator.entities.Record;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedHashMap;
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Path("combinatorics")
@@ -95,13 +101,14 @@ public class CombinatoricsResource {
         return new ResponseBuilderImpl().entity(String.format("There are unique %d ways of picking %d items from a set of %d elements", result, choices.get(), elements.get())).status(Response.Status.OK).build();
     }
 
-    @GET
+    @POST
     @Path("all")
-    public Response getAll(){
-
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response getAll(Optional<Map<String,String>> searchParams){
+        LOGGER.warn(searchParams);
         List<Record>  result = null;
         try {
-            result = combinatoricsSerivce.getAll();
+            result = combinatoricsSerivce.getAll(searchParams.map(HashMap::new).orElseGet(HashMap::new));
         } catch (WebApplicationException e) {
             return new ResponseBuilderImpl().entity(e.getMessage()).build();
         }

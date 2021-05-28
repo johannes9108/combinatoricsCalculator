@@ -11,10 +11,10 @@ public class Record extends PanacheEntity {
     private LocalDateTime dateTime;
     private long elements;
     private long choices;
-    private Boolean repetition;
+    private boolean repetition;
     private long result;
 
-    public Record(LocalDateTime dateTime, long elements, long choices, Boolean repetition,long result) {
+    public Record(LocalDateTime dateTime, long elements, long choices, boolean repetition,long result) {
         this.dateTime = dateTime;
         this.elements = elements;
         this.choices = choices;
@@ -49,11 +49,11 @@ public class Record extends PanacheEntity {
         this.choices = choices;
     }
 
-    public Boolean getRepetition() {
+    public boolean getRepetition() {
         return repetition;
     }
 
-    public void setRepetition(Boolean repetition) {
+    public void setRepetition(boolean repetition) {
         this.repetition = repetition;
     }
 
