@@ -1,9 +1,8 @@
-package se.iths.jh.combinatoricsCalculator.rest.entities;
+package se.iths.jh.combinatoricsCalculator.rest;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.Entity;
 import java.time.LocalDateTime;
@@ -17,7 +16,6 @@ public class Record extends PanacheEntity {
     private long choices;
     private boolean repetition;
     private long result;
-
 
     public Record(LocalDateTime dateTime, long elements, long choices, boolean repetition, long result) {
         this.dateTime = dateTime;
@@ -69,7 +67,6 @@ public class Record extends PanacheEntity {
     public void setResult(long result) {
         this.result = result;
     }
-
 
     @Override
     public String toString() {

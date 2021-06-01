@@ -10,8 +10,8 @@ import javax.ws.rs.ext.Provider;
 import java.io.IOException;
 
 @Provider
-public class LogFilter implements ContainerRequestFilter, ClientRequestFilter {
-    private Logger LOGGER = Logger.getLogger(LogFilter.class);
+public class LogFilter2 implements ContainerRequestFilter, ClientRequestFilter {
+    private Logger LOGGER = Logger.getLogger(LogFilter2.class);
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
         LOGGER.warn("1: " + requestContext.getUriInfo().getRequestUri().toString());

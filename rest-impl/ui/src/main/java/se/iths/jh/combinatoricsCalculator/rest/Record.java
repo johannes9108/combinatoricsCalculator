@@ -1,20 +1,22 @@
 package se.iths.jh.combinatoricsCalculator.rest;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 import javax.persistence.Entity;
-import java.math.BigInteger;
 import java.time.LocalDateTime;
 
-public class Record {
+@Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Record extends PanacheEntity {
 
     private LocalDateTime dateTime;
     private long elements;
     private long choices;
-    private Boolean repetition;
-    private BigInteger result;
+    private boolean repetition;
+    private long result;
 
-    public Record(LocalDateTime dateTime, long elements, long choices, Boolean repetition,BigInteger result) {
+    public Record(LocalDateTime dateTime, long elements, long choices, boolean repetition, long result) {
         this.dateTime = dateTime;
         this.elements = elements;
         this.choices = choices;
@@ -49,19 +51,19 @@ public class Record {
         this.choices = choices;
     }
 
-    public Boolean getRepetition() {
+    public boolean getRepetition() {
         return repetition;
     }
 
-    public void setRepetition(Boolean repetition) {
+    public void setRepetition(boolean repetition) {
         this.repetition = repetition;
     }
 
-    public BigInteger getResult() {
+    public long getResult() {
         return result;
     }
 
-    public void setResult(BigInteger result) {
+    public void setResult(long result) {
         this.result = result;
     }
 
