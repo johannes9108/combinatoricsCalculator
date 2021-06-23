@@ -1,6 +1,5 @@
 package se.iths.jh.combinatoricsCalculator.rest;
 
-import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;

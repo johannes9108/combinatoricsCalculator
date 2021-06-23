@@ -1,31 +1,24 @@
-package se.iths.jh.combinatoricsCalculator.rest;
+package se.iths.jh.combinatoricsCalculator.kafka;
 
+
+import org.eclipse.microprofile.reactive.messaging.Incoming;
+import org.eclipse.microprofile.reactive.messaging.Outgoing;
+import org.jboss.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
 import java.math.BigInteger;
-import java.util.HashMap;
-import java.util.List;
-
-
-import org.eclipse.microprofile.rest.client.inject.RestClient;
-import org.jboss.logging.Logger;
 
 @ApplicationScoped
 public class CalculatorService {
 
-    @Inject
-    @RestClient
-    PersistenceService persistenceService;
 
 
 
     @PostConstruct
     void init(){
         LOGGER.warn("CalculatorService PS");
-        LOGGER.warn(persistenceService);
     }
 
     private Logger LOGGER = Logger.getLogger(CalculatorService.class);
@@ -36,15 +29,7 @@ public class CalculatorService {
         validate(elements, choices);
         long n = elements;
         long k = choices;
-        long result = repetition ? permutationsWithRepetition(n, k) : permutationsWithoutRepetition(n, k);
-        LOGGER.info("Calculator Service");
-        try {
-            Record record = persistenceService.persist(n,k,repetition,result);
-                    LOGGER.warn("" + record );
-        } catch (Exception e) {
-            LOGGER.info(e.getLocalizedMessage());
-        }
-        return result;
+        return repetition ? permutationsWithRepetition(n, k) : permutationsWithoutRepetition(n, k);
     }
 
     private long permutationsWithRepetition(long n, long k) {
@@ -71,9 +56,7 @@ public class CalculatorService {
         validate(elements, choices);
         long n = elements;
         long k = choices;
-        long result = repetition ? combinationsWithRepetition(n, k) : combinationsWithoutRepetition(n, k);
-//        persistenceService.persist(n, k, repetition, result);
-        return result;
+        return repetition ? combinationsWithRepetition(n, k) : combinationsWithoutRepetition(n, k);
     }
 
     private long combinationsWithRepetition(long n, long k) {
@@ -104,10 +87,5 @@ public class CalculatorService {
             bigInteger = bigInteger.multiply(BigInteger.valueOf(i));
         }
         return bigInteger;
-    }
-
-
-    public List<Record> getAll(HashMap<String, String> searchParams) {
-        return null;
     }
 }

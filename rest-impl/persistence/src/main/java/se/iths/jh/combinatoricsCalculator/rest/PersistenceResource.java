@@ -2,7 +2,7 @@ package se.iths.jh.combinatoricsCalculator.rest;
 
 import org.jboss.logging.Logger;
 import se.iths.jh.combinatoricsCalculator.rest.entities.Record;
-import javax.enterprise.context.ApplicationScoped;
+
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

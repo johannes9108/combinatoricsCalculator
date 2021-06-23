@@ -2,8 +2,6 @@ package se.iths.jh.combinatoricsCalculator.rest.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.Entity;
 import java.time.LocalDateTime;
